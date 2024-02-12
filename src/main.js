@@ -1,8 +1,9 @@
 
+for (let ii = 0; ii < 10; ii++)
+    sieve(100_000);
+sieve(100_000, true);
 
-sieve(100000);
-
-function sieve(limit) {
+function sieve(limit, emit) {
 
     const start = Date.now();
 
@@ -30,8 +31,10 @@ function sieve(limit) {
 
     const end = Date.now();
 
-    console.log(primes.join(" "));
+    //console.log(primes.join(" "));
 
-    console.log("\n");
-    console.log(`Elapsed: ${end - start}ms\n`);
+    if (emit) {
+        console.log("\n");
+        console.log(`Node elapsed: ${end - start}ms\n`);
+    }
 }

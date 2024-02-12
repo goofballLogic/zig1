@@ -2,11 +2,18 @@ const std = @import("std");
 const stdout = std.io.getStdOut().writer();
 
 pub fn main() !void {
-    try sieve(100000);
+    var i: usize = 0;
+    while(i < 10) : (i+= 1) {
+
+        try sieve(100000, false);
+
+    }
+    try sieve(100000, true);
+
 }
 
 // using a comptime limit ensures that there's no need for dynamic memory.
-fn sieve(comptime limit: usize) !void {
+fn sieve(comptime limit: usize, emit: bool) !void {
 
     var start = std.time.microTimestamp();
 
@@ -27,9 +34,11 @@ fn sieve(comptime limit: usize) !void {
             primes.append(p);
     var end = std.time.microTimestamp();
 
-    for (primes.items) | p |
-        try stdout.print("{} ", .{p});
+    // for (primes.items) | p |
+    //     try stdout.print("{} ", .{p});
 
-    try stdout.print("\n\n", .{});
-    try stdout.print("Elapsed: {}ms\n\n", .{end - start});
+    if(emit) {
+        try stdout.print("\n\n", .{});
+        try stdout.print("Zig elapsed: {}ms\n\n", .{end - start});
+    }
 }
